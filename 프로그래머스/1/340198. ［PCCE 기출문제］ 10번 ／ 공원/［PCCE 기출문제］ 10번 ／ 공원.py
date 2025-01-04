@@ -1,6 +1,4 @@
 def solution(mats, park):
-    a = len(park)
-    b = len(park[0])
     def spread(m, i, j):
         for k in range(m):
             for l in range(m):
@@ -12,7 +10,7 @@ def solution(mats, park):
         return m
     
     answer = -1
-    mats.sort()
+    mats.sort(reverse=True)
     
     for m in mats:
         for i in range(len(park)):
