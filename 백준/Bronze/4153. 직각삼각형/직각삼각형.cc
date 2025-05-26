@@ -1,27 +1,17 @@
 #include <iostream>
-#include <cmath>
+#include <algorithm>
 
 int main() {
-    int Heru, Ausar, Auset;
+    int a[3];
     while(1){
-        std::cin >> Ausar >> Auset >> Heru;
-        if (Heru == 0 && Ausar == 0 && Auset == 0) {
-            break;
-        }
+        std::cin >>a[0] >> a[1] >> a[2];
+        if (a[0] == 0 && a[1] == 0 && a[2] == 0) break;
+        std::sort(a, a + 3);
 
-        if(Auset > Heru) {
-            if (Auset > Ausar) std::swap(Auset, Heru);
-            else std::swap(Ausar, Heru);
-        }
-        else if (Ausar > Heru) {
-            if (Auset > Ausar) std::swap(Auset, Heru);
-            else std::swap(Ausar, Heru);
-        }
-
-        if(pow(Auset, 2) + pow(Ausar, 2) == pow(Heru, 2)) {
-        std::cout << "right" << std::endl;
+        if(a[0]*a[0] + a[1]*a[1] == a[2]*a[2]) {
+        std::cout << "right\n";
         }else {
-        std::cout << "wrong" << std::endl;
+        std::cout << "wrong\n";
         }
     }
     return 0;
