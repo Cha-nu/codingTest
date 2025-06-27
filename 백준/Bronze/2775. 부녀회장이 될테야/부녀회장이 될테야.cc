@@ -13,6 +13,7 @@ int main() {
         std::cin >> k >> n;
         for(int j = 0; j < k; j++){
             for(int l = 0; l < n; l++){
+                if (dp[j + 1][l + 1] != 0) continue;
                 dp[j + 1][l + 1] = dp[j][l + 1] + dp[j + 1][l];
             }
         }
