@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+
 using namespace std;
 
 int main(){
@@ -8,9 +9,9 @@ int main(){
 
     int M, a;
     string cmd;
-    int S = 0;
-
     cin >> M;
+    unsigned int S = 0;
+
     while(M--){
         cin >> cmd;
         if(cmd == "add"){
@@ -23,19 +24,14 @@ int main(){
         }
         else if(cmd == "check"){
             cin >> a;
-            cout << ((S & (1 << a)) ? 1 : 0) << '\n';
+            cout << (S & (1 << a) ? 1 : 0) << '\n';
         }
         else if(cmd == "toggle"){
             cin >> a;
-            S ^= (1 << a);
+            S & (1 << a) ? S &= ~(1 << a) : S |= (1 << a);
         }
-        else if(cmd == "all"){
-            S = (1 << 21) - 1;
-        }
-        else if(cmd == "empty"){
-            S = 0;
-        }
+        else if(cmd == "all") S = (1 << 21) - 1;
+        else if(cmd == "empty") S = 0;
     }
-
     return 0;
 }
