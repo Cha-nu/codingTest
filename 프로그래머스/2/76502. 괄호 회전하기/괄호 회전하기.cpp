@@ -1,40 +1,42 @@
 #include <stack>
 #include <string>
-#include <unordered_map>
-#include <vector>
 
 using namespace std;
 
-unordered_map<char, char> bracketPair = {{')', '('},{']', '['}, {'}','{'}};
-
-bool isVaild(string &s, int start)
-{
+bool isValid(const string &s, int start, int n) {
     stack<char> stk;
-    unsigned int sz = s.size();
-    
-    for(int i = 0; i < sz; i++)
-    {
-        char ch = s[(start + i) % sz];
-        if(bracketPair.count(ch))
-        {
-            if(stk.empty() || stk.top() != bracketPair[ch]) return false;
-            stk.pop();
-        }
-        else
-        {
-            stk.push(ch);    
+    for(int i = 0; i < n; i++) {
+        char ch = s[(start + i) % n];
+        // Map 대신 switch를 사용하면 컴파일러가 Jump Table로 최적화하여 매우 빠름
+        switch(ch) {
+            case '(': case '{': case '[':
+                stk.push(ch);
+                break;
+            case ')':
+                if(stk.empty() || stk.top() != '(') return false;
+                stk.pop();
+                break;
+            case '}':
+                if(stk.empty() || stk.top() != '{') return false;
+                stk.pop();
+                break;
+            case ']':
+                if(stk.empty() || stk.top() != '[') return false;
+                stk.pop();
+                break;
         }
     }
     return stk.empty();
 }
 
 
+
 int solution(string s) {
     int answer = 0;
-    
-    for(int start = 0; start < s.size(); start++)
+    int n = s.size();
+    for(int start = 0; start < n; start++)
     {
-        answer += isVaild(s, start);
+        answer += isValid(s, start, n);
     }
     return answer;
 }
