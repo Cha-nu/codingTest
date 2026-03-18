@@ -17,10 +17,10 @@ int main()
 
     for(char c : s)
     {
+        result.push_back(c);
         // 폭탄의 끝 글자와 같으면
         if(c == bomb.back())
         {
-            result.push_back(c);
             vector<char> temp;
             // 폭탄 글자수 만큼 스택에서 pop()
             for(int i = static_cast<int>(bomb.length()) - 1; i >= 0; --i)
@@ -37,13 +37,9 @@ int main()
                         result.push_back(temp.back());
                         temp.pop_back();
                     }
+                    break;
                 }
             }
-        }
-        // 다르면 스택에 집어넣기
-        else
-        {
-            result.push_back(c);
         }
     }
 
