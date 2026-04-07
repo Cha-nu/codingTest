@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include <vector>
 
 using namespace std;
@@ -23,17 +24,16 @@ int main(void)
     }
 
 
-    for(int i = 0; i < n; i++)
-    {
-        if(sangdam[i][0]+i > n) continue; // 상담 기간이 퇴사 기간을 넘어가면 미선택
-        else
-        {
-            dp[i] += sangdam[i][1];
-            for(int j = i; j < n+1; j++)
-            {
-                if(sangdam[i][0]+j > n) break;
-                dp[sangdam[i][0]+j] = max(dp[sangdam[i][0]+j], dp[i]); // 더 많이 받는 상담으로 교체
-            }
+    for (int i = 0; i < n; i++) {
+        // 1. 현재까지의 최댓값을 다음 날로 전파 (오늘 상담을 안 하는 경우)
+        if (i + 1 <= n) {
+            dp[i + 1] = max(dp[i + 1], dp[i]);
+        }
+
+        // 2. 오늘 상담을 하는 경우 (퇴사 전까지 끝날 때만)
+        int finish_day = i + sangdam[i][0];
+        if (finish_day <= n) {
+            dp[finish_day] = max(dp[finish_day], dp[i] + sangdam[i][1]);
         }
     }
 
