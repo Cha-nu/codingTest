@@ -1,6 +1,6 @@
 #include <iostream>
-#include <vector>
 #include <queue>
+#include <vector>
 
 using namespace std;
 
@@ -9,62 +9,51 @@ int main(void)
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int n, k, result = 0;
-    queue<pair<int, int>> q; // (위치 시간)
+    int n, k, result = 0; // k에 최단시간으로 도착한 방법의 수
+    cin >> n >> k;
+    
     vector<vector<int>> visited(100001, vector<int> (2, 0)); // (방문여부, 시간)
 
-    cin >> n >> k;
+    queue<pair<int, int>> q; // BFS (위치, 시간)
 
-        q.push({n, 0});
-        visited[n][0] = 1;
-        visited[n][1] = 0;
+    // 방문 시작
+    visited[n][0] = 1;
+    visited[n][1] = 0;
+    q.push({n, 0});
 
-        while(!q.empty())
+    while(!q.empty())
+    {
+        n = q.front().first;
+        int time = q.front().second;
+        q.pop();
+
+        if(n == k)
         {
-            n = q.front().first;
-            int time = q.front().second;
-            q.pop();
-
-            if(n == k) 
+            // cout << n << ' ' <<  time << '\n';
+            if(result == 0)
             {
-                if(result == 0) // 처음 도착
-                {
-                    visited[k][1] = time;
-                    result = 1;
-                }
-                else if (time == visited[k][1]) result++;
-                continue; // 도착하면 종료
-            } 
-
-            if(n+1 <= 100000)
-            {
-                if(visited[n+1][0] == 0 || visited[n+1][1] == time+1) // 미방문
-                {
-                    visited[n+1][0] = 1; // 방문처리
-                    visited[n+1][1] = time+1;
-                    q.push({n+1, time+1});  
-                }
-            } 
-            if(n-1 >= 0)
-            {
-                if(visited[n-1][0] == 0 || visited[n-1][1] == time+1) // 미방문
-                {
-                    visited[n-1][0] = 1; 
-                    visited[n-1][1] = time+1;
-                    q.push({n-1, time+1});
-                }
+                visited[n][1] = time;
+                result = 1;
             }
-            if(2*n <= 100000)
+            else if(visited[n][1] == time) result++; // 더 빠른 시간에 도착하면 초기화
+            
+            continue; // k에 도달한 경우 더 이상 진행X
+        }
+
+        vector<int> next_ns = {n+1, n-1, n*2};
+        for(int next_n : next_ns)
+        {
+            if(next_n >= 0 && next_n <= 100000)
             {
-                if(visited[2*n][0] == 0 || visited[2*n][1] == time+1) // 미방문
+                if(visited[next_n][0] == 0 || visited[next_n][1] >= time+1)
                 {
-                    visited[2*n][0] = 1;
-                    visited[2*n][1] = time+1;
-                    q.push({2*n, time+1});
+                    visited[next_n][0] = 1;
+                    visited[next_n][1] = time+1;
+                    q.push({next_n, time+1});
                 }
             }
         }
-
+    }
     cout << visited[k][1] << '\n' << result;
 
     return 0;
