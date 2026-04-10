@@ -12,13 +12,14 @@ int main(void)
     int n, k, result = 0; // k에 최단시간으로 도착한 방법의 수
     cin >> n >> k;
     
-    vector<vector<int>> visited(100001, vector<int> (2, 0)); // (방문여부, 시간)
+    vector<vector<int>> visited (100001, vector<int> (2, 0)); // (방문여부, 시간)
 
     queue<pair<int, int>> q; // BFS (위치, 시간)
 
     // 방문 시작
     visited[n][0] = 1;
     visited[n][1] = 0;
+    visited[k][1] = 100001;
     q.push({n, 0});
 
     while(!q.empty())
@@ -30,13 +31,12 @@ int main(void)
         if(n == k)
         {
             // cout << n << ' ' <<  time << '\n';
-            if(result == 0)
+            if(visited[n][0] = 1 && visited[n][1] == time) result++;
+            else if(visited[n][1] > time) // 더 빠른 시간에 도착하면 초기화
             {
                 visited[n][1] = time;
                 result = 1;
             }
-            else if(visited[n][1] == time) result++; // 더 빠른 시간에 도착하면 초기화
-            
             continue; // k에 도달한 경우 더 이상 진행X
         }
 
@@ -45,7 +45,7 @@ int main(void)
         {
             if(next_n >= 0 && next_n <= 100000)
             {
-                if(visited[next_n][0] == 0 || visited[next_n][1] >= time+1)
+                if(visited[next_n][0] == 0 || (visited[next_n][0] == 1 && visited[next_n][1] >= time+1))
                 {
                     visited[next_n][0] = 1;
                     visited[next_n][1] = time+1;
