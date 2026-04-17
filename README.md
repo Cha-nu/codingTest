@@ -14,13 +14,19 @@ This is an auto push repository for Baekjoon Online Judge created with [Baekjoon
 ## Hash Table
 |  |
 | ------- |
+| [0242-valid-anagram](https://github.com/Cha-nu/codingTest/tree/master/0242-valid-anagram) |
 | [0383-ransom-note](https://github.com/Cha-nu/codingTest/tree/master/0383-ransom-note) |
 ## String
 |  |
 | ------- |
+| [0242-valid-anagram](https://github.com/Cha-nu/codingTest/tree/master/0242-valid-anagram) |
 | [0383-ransom-note](https://github.com/Cha-nu/codingTest/tree/master/0383-ransom-note) |
 ## Counting
 |  |
 | ------- |
 | [0383-ransom-note](https://github.com/Cha-nu/codingTest/tree/master/0383-ransom-note) |
+## Sorting
+|  |
+| ------- |
+| [0242-valid-anagram](https://github.com/Cha-nu/codingTest/tree/master/0242-valid-anagram) |
 <!---LeetCode Topics End-->
