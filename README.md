@@ -14,6 +14,7 @@ This is an auto push repository for Baekjoon Online Judge created with [Baekjoon
 ## Hash Table
 |  |
 | ------- |
+| [0001-two-sum](https://github.com/Cha-nu/codingTest/tree/master/0001-two-sum) |
 | [0217-contains-duplicate](https://github.com/Cha-nu/codingTest/tree/master/0217-contains-duplicate) |
 | [0242-valid-anagram](https://github.com/Cha-nu/codingTest/tree/master/0242-valid-anagram) |
 | [0383-ransom-note](https://github.com/Cha-nu/codingTest/tree/master/0383-ransom-note) |
@@ -34,5 +35,6 @@ This is an auto push repository for Baekjoon Online Judge created with [Baekjoon
 ## Array
 |  |
 | ------- |
+| [0001-two-sum](https://github.com/Cha-nu/codingTest/tree/master/0001-two-sum) |
 | [0217-contains-duplicate](https://github.com/Cha-nu/codingTest/tree/master/0217-contains-duplicate) |
 <!---LeetCode Topics End-->
