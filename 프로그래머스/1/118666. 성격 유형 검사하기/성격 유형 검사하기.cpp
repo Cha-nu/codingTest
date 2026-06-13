@@ -1,71 +1,28 @@
 #include <string>
 #include <vector>
+#include <map>
+#include <cmath>
 
 using namespace std;
 
 string solution(vector<string> survey, vector<int> choices) {
     string answer = "";
-    vector<int> val (4, 0); // RT, FC, MJ, AN
+    map<char, int> score_map;
     
-    for(int i = 0; i < static_cast<int>(choices.size()); i++)
+    for(size_t i = 0; i < survey.size(); i++)
     {
-        string s = survey[i];
-        int c = choices[i];
-        int idx = 0;
-        int a = 1;
-        if(s == "RT") 
-        {
-            idx = 0;
-            a = 1;
-        }
-        else if(s == "TR")
-        {
-            idx = 0;
-            a = -1;
-        }
-        else if(s == "FC")
-        {
-            idx = 1;
-            a = 1;
-        }
-        else if(s == "CF")
-        {
-            idx = 1;
-            a = -1;
-        }
-        else if(s == "MJ")
-        {
-            idx = 2;
-            a = 1;
-        }
-        else if(s == "JM")
-        {
-            idx = 2;
-            a = -1;
-        }
-        else if(s == "AN")
-        {
-            idx = 3;
-            a = 1;
-        }
-        else if(s == "NA")
-        {
-            idx = 3;
-            a = -1;
-        }
+        int choice = choices[i];
         
-        if(c == 1) val[idx] -= a*3;
-        else if(c == 2) val[idx] -= a*2;
-        else if(c == 3) val[idx] -= a*1;
-        else if(c == 5) val[idx] += a*1;
-        else if(c == 6) val[idx] += a*2;
-        else if(c == 7) val[idx] += a*3;
+        if(choice == 4) continue;
+        
+        if(choice < 4) score_map[survey[i][0]] += (4 - choice);
+        else score_map[survey[i][1]] += (choice - 4);  
     }
-    
-    val[0] <= 0 ? answer+= "R" : answer += "T";
-    val[1] >= 0 ? answer+= "C" : answer += "F";
-    val[2] >= 0 ? answer+= "J" : answer += "M";
-    val[3] <= 0 ? answer+= "A" : answer += "N";
+
+    answer += (score_map['R'] >= score_map['T']) ? "R" : "T";
+    answer += (score_map['C'] >= score_map['F']) ? "C" : "F";
+    answer += (score_map['J'] >= score_map['M']) ? "J" : "M";
+    answer += (score_map['A'] >= score_map['N']) ? "A" : "N";
     
     return answer;
 }
