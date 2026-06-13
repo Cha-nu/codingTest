@@ -5,28 +5,28 @@ using namespace std;
 
 vector<int> solution(vector<string> keymap, vector<string> targets) {
     vector<int> answer;
-    vector<int> al (26, 101);
-    for(string s : keymap)
-    {
-        for(int i = 0; i < static_cast<int>(s.length()); i++)
-        {
-            if(al[s[i]-'A'] > i) al[s[i]-'A'] = i+1;
-        }
-    }
+    vector<int> al (26, -1);
     
-    for(string s : targets)
+    for(string k : keymap) for(int i = 0; i < static_cast<int>(k.size()); i++) if(al[k[i] - 'A'] == -1 || al[k[i] - 'A'] > i) al[k[i] - 'A'] = i+1;
+    
+    for(string k : targets)
     {
-        int n = 0;
-        for(int i = 0; i < static_cast<int>(s.length()); i++)
+        int sum = 0;
+        for(int i = 0; i < static_cast<int>(k.size()); i++)
         {
-            if(al[s[i]-'A'] >= 101)
+            if(al[k[i] - 'A'] == -1)
             {
-                n = -1;
+                sum = -1;
                 break;
             }
-            else n += al[s[i]-'A'];
+            else
+            {
+                sum += al[k[i] - 'A'];
+            }
         }
-        answer.push_back(n);
+        answer.push_back(sum);
     }
+    
+    
     return answer;
 }
