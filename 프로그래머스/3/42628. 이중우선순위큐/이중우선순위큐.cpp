@@ -6,22 +6,24 @@
 using namespace std;
 
 vector<int> solution(vector<string> operations) {
-    multiset<int> s;
-    for(const string& op: operations)
+    vector<int> answer;
+    multiset<int> a;
+    
+    for(const string& op : operations)
     {
         stringstream ss(op);
-        char cmd;
-        int n;
-        ss >> cmd >> n;
-        if(cmd == 'I') s.insert(n);
-        else if(cmd == 'D')
+        char c; int val;
+        ss >>  c >> val;
+        if(c == 'I') a.insert(val);
+        else if(c == 'D')
         {
-            if(s.empty()) continue;
-            if(n == 1) s.erase(prev(s.end()));
-            else if (n == -1) s.erase(s.begin());
-        }
+            if(a.empty()) continue;
+            else if(val == -1) a.erase(a.begin());
+            else if(val == 1) a.erase(prev(a.end()));
+        }   
     }
-    if(s.empty()) return {0, 0};
     
-    return {*s.rbegin(), *s.begin()};
+    if(a.empty()) return {0, 0};
+    
+    return {*(a.rbegin()), *(a.begin())};
 }
