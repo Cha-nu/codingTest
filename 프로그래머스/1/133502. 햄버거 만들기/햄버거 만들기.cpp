@@ -1,28 +1,23 @@
+#include <string>
 #include <vector>
 
 using namespace std;
 
 int solution(vector<int> ingredient) {
-    int answer = 0; 
-    int idx = 0;
-    vector<int> st;
-    
-    for(const int i : ingredient)
+    int answer = 0;
+    vector<int> b;
+    for(int i : ingredient)
     {
-        if(i == 1 && idx > 2 && !st.empty())
+        int idx = static_cast<int>(b.size());
+        if(i == 1 && idx > 2 && b[idx-3] == 1 && b[idx-2] == 2 && b[idx-1] == 3)
         {
-            if(st[idx-3] == 1 && st[idx-2] == 2 && st[idx-1] == 3)
-            {
-                st.pop_back();
-                st.pop_back();
-                st.pop_back();
-                answer++;
-                idx -= 3;
-                continue;
-            }
+            b.pop_back();
+            b.pop_back();
+            b.pop_back();
+            answer++;
+            continue;
         }
-        st.push_back(i);
-        idx++;
+        b.push_back(i);
     }
     return answer;
 }
