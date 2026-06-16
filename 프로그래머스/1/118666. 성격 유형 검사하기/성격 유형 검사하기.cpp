@@ -1,28 +1,23 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <cmath>
 
 using namespace std;
 
 string solution(vector<string> survey, vector<int> choices) {
     string answer = "";
-    map<char, int> score_map;
+    map<char, int> a = {{'R', 0}, {'T', 0}, {'C', 0}, {'F', 0}, {'J', 0}, {'M', 0}, {'A', 0}, {'N', 0}};
     
-    for(size_t i = 0; i < survey.size(); i++)
+    for(int i = 0; i < static_cast<int>(choices.size()); i++)
     {
-        int choice = choices[i];
-        
-        if(choice == 4) continue;
-        
-        if(choice < 4) score_map[survey[i][0]] += (4 - choice);
-        else score_map[survey[i][1]] += (choice - 4);  
+        if(choices[i] > 4) a[survey[i][1]] += (choices[i] - 4);
+        else if (choices[i] < 4) a[survey[i][0]] += (4 - choices[i]);
     }
-
-    answer += (score_map['R'] >= score_map['T']) ? "R" : "T";
-    answer += (score_map['C'] >= score_map['F']) ? "C" : "F";
-    answer += (score_map['J'] >= score_map['M']) ? "J" : "M";
-    answer += (score_map['A'] >= score_map['N']) ? "A" : "N";
+    
+    a['R'] >= a['T'] ? answer+='R' : answer+='T';
+    a['C'] >= a['F'] ? answer+='C' : answer+='F';
+    a['J'] >= a['M'] ? answer+='J' : answer+='M';
+    a['A'] >= a['N'] ? answer+='A' : answer+='N';
     
     return answer;
 }
