@@ -5,25 +5,26 @@
 using namespace std;
 
 vector<string> solution(vector<string> players, vector<string> callings) {
-    unordered_map<string, int> m;
+    vector<string> answer;
+    unordered_map<string, int> o;
     
-    for(int i = 0; i < static_cast<int>(players.size()); i++)
+    for(size_t i = 0; i < players.size(); i++)
     {
-        m[players[i]] = i;
+        o[players[i]] = i;
     }
     
-    for(string s : callings)
+    for(string c: callings)
     {
-        int idx = m[s];
-        int pidx = idx-1;
+        int a = o[c];
+        string pa = players[a - 1];
         
-        string a = players[pidx];
+        o[c] = a-1;
+        o[pa] = a;
         
-        players[idx] = a;
-        players[pidx] = s;
-        
-        m[s] = pidx;
-        m[a] = idx;
+        players[a-1] = c;
+        players[a] = pa;
     }
+    
+    
     return players;
 }
