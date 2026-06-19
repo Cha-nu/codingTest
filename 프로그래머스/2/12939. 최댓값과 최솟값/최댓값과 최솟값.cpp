@@ -1,43 +1,28 @@
 #include <string>
-#include <vector>
-#include <iostream>
+#include <sstream>
 
 using namespace std;
 
 string solution(string s) {
-    string answer = "";
+    string temp;
+    stringstream ss(s);
     
-    int a = -9999; // 최대 
-    int b = 9999; // 최소
+    int a = 9999;
+    int b = -9999;
+    int c;
     
-    string ss = "";
-    
-    for(char c : s)
+    while(ss >> temp)
     {
-        if(c == ' ')
-        {
-            int d = stoi(ss);
-            ss = "";
-            if(a < d) a = d;
-            if(b > d) b = d;
-        }
-        else
-        {
-            ss += c;
-        }
+        c = stoi(temp);
+        if(a > c) a = c;
+        if(b < c) b = c;
     }
     
-    if(ss != "")
-    {
-        int d = stoi(ss);
-        ss = "";
-        if(a < d) a = d;
-        if(b > d) b = d;
-    }
+    temp = "";
+    temp += to_string(a);
+    temp += " ";
+    temp += to_string(b);
     
-    answer += to_string(b);
-    answer += ' ';
-    answer += to_string(a);
-    
-    return answer;
+    return temp;
 }
+
