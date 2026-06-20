@@ -5,24 +5,21 @@
 using namespace std;
 
 vector<string> solution(vector<string> players, vector<string> callings) {
-    vector<string> answer;
-    unordered_map<string, int> o;
+    unordered_map<string, int> um;
     
-    for(size_t i = 0; i < players.size(); i++)
-    {
-        o[players[i]] = i;
-    }
+    for(size_t i = 0; i < players.size(); i++) um[players[i]] = i;
     
-    for(string c: callings)
+    for(string c : callings)
     {
-        int a = o[c];
-        string pa = players[a - 1];
+        int i = um[c];
+        int j = i - 1;
+        string p = players[j];
         
-        o[c] = a-1;
-        o[pa] = a;
+        um[c] = j;
+        um[p] = i;
         
-        players[a-1] = c;
-        players[a] = pa;
+        players[j] = c;
+        players[i] = p;
     }
     
     
