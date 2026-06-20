@@ -1,102 +1,61 @@
 #include <string>
 #include <vector>
+#include <unordered_map>
 #include <sstream>
-#include <iostream>
 
 using namespace std;
 
-int n;
-int m;
+vector<vector<int>> drdc = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
-bool cal(int r, int c, vector<string>& park)
-{
-    if(r < 0 || r >= n || c < 0 || c >= m) return false;
-    else if (park[r][c] == 'X') return false;
-    return true;
-}
+unordered_map<char, int> c = {{'S', 0}, {'N', 1}, {'E', 2}, {'W', 3}};
 
 
 vector<int> solution(vector<string> park, vector<string> routes) {
-    n = park.size();
-    m = park[0].size();
-    int r = -1;
-    int c = -1;
+    int sr = 0, sc = 0;
     
+    int cr = static_cast<int>(park.size());
+    int cc = static_cast<int>(park[0].size());
     
-    for(size_t i = 0; i < n; i++)
+    for(size_t i = 0; i < cr; i++)
     {
-        for(size_t j = 0; j < m; j++)
+        for(size_t j = 0; j < cc; j++)
         {
             if(park[i][j] == 'S')
             {
-                r = i;
-                c = j;
+                sr = i, sc = j;
                 break;
             }
         }
-        if(r != -1 && c != -1) break;
     }
     
-    for(const string& op :  routes)
+    for(const string& r : routes)
     {
-        stringstream ss(op);
-        char a; int val;
-        ss >> a >> val;
-        int nr = r, nc = c;
+        stringstream ss(r);
+        char cmd;
+        int val;
+        ss >> cmd >> val;
+        
+        int nr = sr;
+        int nc = sc;
         bool key = true;
-        if(a == 'N') // 시뮬레이트
+        
+        for(int i = 0; i < val; i++)
         {
-            for(int i = 1; i <= val; i++)
+            nr += drdc[c[cmd]][0];
+            nc += drdc[c[cmd]][1];
+            if(nr < 0 || nr >= cr || nc < 0 || nc >= cc || park[nr][nc] == 'X')
             {
-                nr = r - i;
-                if(!cal(nr, c, park))
-                {
-                    key = false;
-                    break;
-                }
+                key = false;
+                break;
             }
-            if(key) r = nr;
         }
-        else if(a == 'E')
+        if(key)
         {
-            for(int i = 1; i <= val; i++)
-            {
-                nc = c + i;
-                if(!cal(r, nc, park))
-                {
-                    key = false;
-                    break;
-                }
-            }
-            if(key) c = nc;
+            sr = nr;
+            sc = nc;
         }
-        else if(a == 'W')
-        {
-            for(int i = 1; i <= val; i++)
-            {
-                nc = c - i;
-                if(!cal(r, nc, park))
-                {
-                    key = false;
-                    break;
-                }
-            }
-            if(key) c = nc;
-        }
-        else if (a == 'S')
-        {
-            for(int i = 1; i <= val; i++)
-            {
-                nr = r + i;
-                if(!cal(nr, c, park))
-                {
-                    key = false;
-                    break;
-                }
-            }
-            if(key) r = nr;
-        }
-        cout << r << ' ' << c << '\n';
+        
     }
-    return {r, c};
+    
+    return {sr, sc};
 }
