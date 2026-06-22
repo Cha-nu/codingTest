@@ -5,19 +5,21 @@ using namespace std;
 
 int solution(vector<int> ingredient) {
     int answer = 0;
-    vector<int> b;
+    vector<int> st;
+    
+    
     for(int i : ingredient)
     {
-        int idx = static_cast<int>(b.size());
-        if(i == 1 && idx > 2 && b[idx-3] == 1 && b[idx-2] == 2 && b[idx-1] == 3)
+        int n = static_cast<int>(st.size());
+        if(i == 1 && n >= 3 && st[n-3] == 1 && st[n-2] == 2 && st[n-1] == 3)
         {
-            b.pop_back();
-            b.pop_back();
-            b.pop_back();
+            st.pop_back();
+            st.pop_back();
+            st.pop_back();
             answer++;
-            continue;
         }
-        b.push_back(i);
+        else st.push_back(i);
     }
+    
     return answer;
 }
