@@ -3,11 +3,14 @@
 using namespace std;
 
 vector<int> solution(int brown, int yellow) {
-    for(int i = 3; i <= yellow+2; i++)
+    int t = brown + yellow;
+    
+    for(int h = 3; h * h <= t; h++)
     {
-        for(int j = 3; j <= i; j++)
+        if(t % h == 0)
         {
-            if(i*j == (brown + yellow) && (i - 2) * (j - 2) == yellow) return {i, j};
+            int w = t / h;
+            if((w-2)*(h-2) == yellow) return {w, h};
         }
     }
     
