@@ -9,19 +9,18 @@ vector<int> solution(string s) {
     while(s != "1")
     {
         int cnt = 0;
-        for(char a : s)
+        ++answer[0];
+        for(char c: s)
         {
-            if(a == '1') cnt++;
-            if(a == '0') answer[1]++;
+            if(c == '1') ++cnt;
+            else if(c == '0') ++answer[1];
         }
-        answer[0]++;
         s = "";
+        
         while(cnt != 0)
         {
-            if (cnt % 2 == 1) s += "1";
-            else s+= "0";
-  
-            cnt /= 2; 
+            s += (cnt % 2) +'0';
+            cnt /= 2;
         }
     }
     
