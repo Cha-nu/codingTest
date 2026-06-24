@@ -1,23 +1,22 @@
 #include <string>
 #include <vector>
-#include <map>
+#include <unordered_map>
 
 using namespace std;
 
 string solution(vector<string> survey, vector<int> choices) {
-    string answer = "";
-    map<char, int> a = {{'R', 0}, {'T', 0}, {'C', 0}, {'F', 0}, {'J', 0}, {'M', 0}, {'A', 0}, {'N', 0}};
+    string answer = "abcd";
+    unordered_map<char, int> k = {{'R', 0},{'T', 0},{'C', 0},{'F', 0},{'J', 0},{'M', 0},{'A', 0},{'N', 0}};
     
-    for(int i = 0; i < static_cast<int>(choices.size()); i++)
+    for(size_t i = 0; i < choices.size(); ++i)
     {
-        if(choices[i] > 4) a[survey[i][1]] += (choices[i] - 4);
-        else if (choices[i] < 4) a[survey[i][0]] += (4 - choices[i]);
+        if(choices[i] >= 4) k[survey[i][1]] += choices[i]-4;
+        else k[survey[i][0]] += 4-choices[i];
     }
     
-    a['R'] >= a['T'] ? answer+='R' : answer+='T';
-    a['C'] >= a['F'] ? answer+='C' : answer+='F';
-    a['J'] >= a['M'] ? answer+='J' : answer+='M';
-    a['A'] >= a['N'] ? answer+='A' : answer+='N';
-    
+    k['R'] >= k['T'] ? answer[0] = 'R' : answer[0] = 'T';
+    k['C'] >= k['F'] ? answer[1] = 'C' : answer[1] = 'F';
+    k['J'] >= k['M'] ? answer[2] = 'J' : answer[2] = 'M';
+    k['A'] >= k['N'] ? answer[3] = 'A' : answer[3] = 'N';
     return answer;
 }
