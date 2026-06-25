@@ -1,29 +1,31 @@
-#include <vector>
 #include <queue>
+#include <vector>
 
 using namespace std;
 
 long long solution(int n, vector<int> works) {
     long long answer = 0;
     
-    int total = 0;
-    for(int w : works) total+= w;
-    if(total <= n) return 0;
     
-    priority_queue<int> pq (works.begin(), works.end());
-    // 최댓값을 줄이는 방식
+    int tw = 0;
+    for(int w : works)tw += w;
+    if(tw <= n) return 0;
+    
+    priority_queue<int> pq(works.begin(), works.end());
+    
     while(n-- && !pq.empty())
     {
-        int val = pq.top() - 1;
+        int a = pq.top() - 1;
         pq.pop();
-        if(val > 0) pq.push(val);
+        
+        if(a > 0) pq.push(a);
     }
     
     while(!pq.empty())
     {
-        int i = pq.top();
+        int a = pq.top();
         pq.pop();
-        answer += i*i;
+        answer += a * a;
     }
     
     return answer;
