@@ -1,28 +1,27 @@
 #include <string>
+#include <vector>
 #include <sstream>
 
 using namespace std;
 
 string solution(string s) {
-    string temp;
+    string answer = "";
     stringstream ss(s);
     
-    int a = 9999;
-    int b = -9999;
-    int c;
+    int ma = -9999;
+    int mi = 9999;
+    string temp;
     
     while(ss >> temp)
     {
-        c = stoi(temp);
-        if(a > c) a = c;
-        if(b < c) b = c;
+        int t = stoi(temp);
+        if(t > ma) ma = t;
+        if(t < mi) mi = t;
     }
     
-    temp = "";
-    temp += to_string(a);
-    temp += " ";
-    temp += to_string(b);
+    answer += to_string(mi);
+    answer += ' ';
+    answer += to_string(ma);
     
-    return temp;
+    return answer;
 }
-
