@@ -1,48 +1,55 @@
 #include <string>
 #include <vector>
-#include <unordered_map>
 #include <sstream>
+#include <unordered_map>
 
 using namespace std;
 
-vector<vector<int>> drdc = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+vector<int> dr = {1, -1, 0, 0};
+vector<int> dc = {0, 0, 1, -1};
 
-unordered_map<char, int> c = {{'S', 0}, {'N', 1}, {'E', 2}, {'W', 3}};
-
+unordered_map<char, int> r = {{'S', 0}, {'N', 1}, {'E', 2}, {'W', 3}};
 
 vector<int> solution(vector<string> park, vector<string> routes) {
-    int sr = 0, sc = 0;
+    vector<int> answer;
+    
+    int sr, sc;
+    bool key = false;
     
     int cr = static_cast<int>(park.size());
     int cc = static_cast<int>(park[0].size());
     
-    for(size_t i = 0; i < cr; i++)
+    // 출발지 선택
+    for(int r = 0; r < cr; ++r)
     {
-        for(size_t j = 0; j < cc; j++)
+        for(int c = 0; c < cc; ++c)
         {
-            if(park[i][j] == 'S')
+            if(park[r][c] == 'S')
             {
-                sr = i, sc = j;
+                sr = r;
+                sc = c;
                 break;
             }
         }
+        if(key) break;
     }
     
-    for(const string& r : routes)
+    for(string ro : routes)
     {
-        stringstream ss(r);
+        stringstream ss(ro);
         char cmd;
         int val;
         ss >> cmd >> val;
         
         int nr = sr;
         int nc = sc;
-        bool key = true;
+        key = true;
         
-        for(int i = 0; i < val; i++)
+        while(val--)
         {
-            nr += drdc[c[cmd]][0];
-            nc += drdc[c[cmd]][1];
+            nr+= dr[r[cmd]];
+            nc+= dc[r[cmd]];    
+               
             if(nr < 0 || nr >= cr || nc < 0 || nc >= cc || park[nr][nc] == 'X')
             {
                 key = false;
@@ -53,9 +60,9 @@ vector<int> solution(vector<string> park, vector<string> routes) {
         {
             sr = nr;
             sc = nc;
-        }
-        
+        } 
     }
+    
     
     return {sr, sc};
 }
