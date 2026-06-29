@@ -5,27 +5,26 @@ using namespace std;
 
 long long solution(int n, vector<int> works) {
     long long answer = 0;
-    
-    
-    int tw = 0;
-    for(int w : works)tw += w;
-    if(tw <= n) return 0;
+    int t = 0;
+    for(int w : works) t+=w; 
+    if(n >= t) return 0;
     
     priority_queue<int> pq(works.begin(), works.end());
     
-    while(n-- && !pq.empty())
+    while(n--)
     {
-        int a = pq.top() - 1;
+        t = pq.top();
         pq.pop();
+        --t;
         
-        if(a > 0) pq.push(a);
+        if(t > 0) pq.push(t);
     }
     
     while(!pq.empty())
     {
-        int a = pq.top();
+        t = pq.top();
         pq.pop();
-        answer += a * a;
+        answer += t*t;
     }
     
     return answer;
