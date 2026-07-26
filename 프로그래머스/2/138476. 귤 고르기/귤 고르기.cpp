@@ -4,7 +4,7 @@
 
 using namespace std;
 
-bool cmp(const pair<int, int>& a,const pair<int, int>& b)
+bool cmp(pair<int, int>& a, pair<int, int>& b)
 {
     if(a.second == b.second) return a.first > b.first;
     return a.second > b.second;
@@ -12,16 +12,17 @@ bool cmp(const pair<int, int>& a,const pair<int, int>& b)
 
 int solution(int k, vector<int> tangerine) {
     int answer = 0;
-    map<int, int> m;
     
-    for(int t : tangerine) m[t]++;
+    map<int, int> cls;
     
-    vector<pair<int, int>> v (m.begin(), m.end());
-    sort(v.begin(), v.end(), cmp);
+    for(int t : tangerine) ++cls[t];
     
-    for(auto i = v.begin(); i != v.end(); ++i)
+    vector<pair<int, int>> box (cls.begin(), cls.end());
+    sort(box.begin(), box.end(), cmp);
+    
+    for(auto const&[i, j] : box)
     {
-        k -= i->second;
+        k -= j;
         ++answer;
         if(k <= 0) return answer;
     }
