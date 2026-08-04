@@ -1,30 +1,30 @@
-#include <queue>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
 long long solution(int n, vector<int> works) {
     long long answer = 0;
     int t = 0;
-    for(int w : works) t+=w; 
-    if(n >= t) return 0;
     
-    priority_queue<int> pq(works.begin(), works.end());
+    for(int w : works) t += w;
+    if(t <= n) return 0;
     
-    while(n--)
+    priority_queue<long long> pq = {works.begin(), works.end()};
+    
+    while(n--) // 야근
     {
-        t = pq.top();
+        int w = pq.top();
         pq.pop();
-        --t;
-        
-        if(t > 0) pq.push(t);
+        --w;
+        if(w > 0) pq.push(w);
     }
     
     while(!pq.empty())
     {
-        t = pq.top();
+        int w = pq.top();
         pq.pop();
-        answer += t*t;
+        answer += w*w;
     }
     
     return answer;
