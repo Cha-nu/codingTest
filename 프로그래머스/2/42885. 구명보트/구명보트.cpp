@@ -1,21 +1,26 @@
 #include <algorithm>
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
 int solution(vector<int> people, int limit) {
     int answer = 0;
-    int idx = 0;
-    sort(people.begin(), people.end(), greater());
+    // 투포인트 
+    int left = 0;
+    int right = people.size()-1;
     
-    while(idx < people.size())
+    sort(people.begin(), people.end());
+    
+    for(int p : people) cout << p << '\n';
+    
+    while(left <= right)
     {
-        int l = limit;
-        l -= people[idx++];
+        if(people[left] + people[right] <= limit) ++left;
+        
         ++answer;
-        if(l >= people.back()) people.pop_back();
+        --right;
     }
-    
     
     return answer;
 }
